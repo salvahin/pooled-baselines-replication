@@ -204,9 +204,9 @@ If you use this code or data, please cite:
 @article{authors2026classimbalance,
   title={The Impact of Class Imbalance on Classifier Architecture Selection for Code Smell Detection},
   author={[Authors]},
-  journal={Applied Sciences},
+  journal={},
   year={2026},
-  publisher={MDPI}
+  publisher={}
 }
 ```
 
