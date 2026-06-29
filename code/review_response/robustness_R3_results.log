@@ -1,0 +1,10 @@
+dataset,classifier,dF1@0.5,dF1@best,dPR-AUC
+IST2021,RF,+0.059,+0.037,+0.037
+IST2021,LogReg,+0.158,+0.121,+0.178
+ImprovMLCQ,RF,-0.037,-0.014,-0.007
+ImprovMLCQ,LogReg,+0.145,+0.090,+0.066
+Crowdsmelling,RF,-0.033,-0.000,+0.005
+Crowdsmelling,LogReg,-0.000,+0.006,+0.026
+SmellyCode++,RF,-0.010,+0.000,-0.009
+SmellyCode++,LogReg,+0.054,+0.042,+0.017
+R3 DONE

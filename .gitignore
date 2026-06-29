@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+env/
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data files (too large for git, download separately)
+data/IST2021/
+data/SmellyCode++.csv
+data/ImprovMLCQ.csv
+
+# Keep pre-computed results
+!data/*_pr_*.csv
+!data/*_results_*.csv
+!data/README.md

@@ -1,0 +1,123 @@
+IST2021        LogReg     seed=42 dF1@0.5=+0.158 dF1@best=+0.121 dAP_int=+0.178 dAP_itr=+0.005 (1s)
+IST2021        LogReg     seed=1 dF1@0.5=+0.167 dF1@best=+0.116 dAP_int=+0.171 dAP_itr=+0.005 (1s)
+IST2021        LogReg     seed=7 dF1@0.5=+0.151 dF1@best=+0.110 dAP_int=+0.156 dAP_itr=-0.002 (1s)
+IST2021        LogReg     seed=13 dF1@0.5=+0.171 dF1@best=+0.119 dAP_int=+0.165 dAP_itr=-0.010 (1s)
+IST2021        LogReg     seed=99 dF1@0.5=+0.152 dF1@best=+0.109 dAP_int=+0.160 dAP_itr=-0.002 (1s)
+IST2021        LinearSVC  seed=42 dF1@0.5=+0.174 dF1@best=+0.121 dAP_int=+0.180 dAP_itr=+0.004 (3s)
+IST2021        LinearSVC  seed=1 dF1@0.5=+0.172 dF1@best=+0.118 dAP_int=+0.175 dAP_itr=+0.007 (2s)
+IST2021        LinearSVC  seed=7 dF1@0.5=+0.158 dF1@best=+0.109 dAP_int=+0.160 dAP_itr=-0.006 (3s)
+IST2021        LinearSVC  seed=13 dF1@0.5=+0.178 dF1@best=+0.127 dAP_int=+0.176 dAP_itr=+0.004 (2s)
+IST2021        LinearSVC  seed=99 dF1@0.5=+0.154 dF1@best=+0.114 dAP_int=+0.161 dAP_itr=-0.002 (3s)
+IST2021        RF         seed=42 dF1@0.5=+0.060 dF1@best=+0.037 dAP_int=+0.037 dAP_itr=+0.013 (8s)
+IST2021        RF         seed=1 dF1@0.5=+0.064 dF1@best=+0.040 dAP_int=+0.042 dAP_itr=+0.012 (8s)
+IST2021        RF         seed=7 dF1@0.5=+0.066 dF1@best=+0.029 dAP_int=+0.026 dAP_itr=-0.004 (8s)
+IST2021        RF         seed=13 dF1@0.5=+0.065 dF1@best=+0.034 dAP_int=+0.051 dAP_itr=+0.017 (8s)
+IST2021        RF         seed=99 dF1@0.5=+0.060 dF1@best=+0.028 dAP_int=+0.020 dAP_itr=-0.010 (8s)
+IST2021        HistGB     seed=42 dF1@0.5=+0.005 dF1@best=+0.016 dAP_int=+0.010 dAP_itr=+0.000 (26s)
+IST2021        HistGB     seed=1 dF1@0.5=+0.028 dF1@best=+0.016 dAP_int=+0.012 dAP_itr=+0.001 (25s)
+IST2021        HistGB     seed=7 dF1@0.5=-0.003 dF1@best=+0.001 dAP_int=-0.005 dAP_itr=-0.015 (26s)
+IST2021        HistGB     seed=13 dF1@0.5=+0.024 dF1@best=+0.022 dAP_int=+0.028 dAP_itr=+0.007 (25s)
+IST2021        HistGB     seed=99 dF1@0.5=+0.005 dF1@best=+0.002 dAP_int=-0.006 dAP_itr=-0.015 (25s)
+ImprovMLCQ     LogReg     seed=42 dF1@0.5=+0.145 dF1@best=+0.090 dAP_int=+0.066 dAP_itr=+0.001 (30s)
+ImprovMLCQ     LogReg     seed=1 dF1@0.5=+0.145 dF1@best=+0.088 dAP_int=+0.065 dAP_itr=-0.001 (31s)
+ImprovMLCQ     LogReg     seed=7 dF1@0.5=+0.145 dF1@best=+0.094 dAP_int=+0.066 dAP_itr=+0.001 (31s)
+ImprovMLCQ     LogReg     seed=13 dF1@0.5=+0.146 dF1@best=+0.091 dAP_int=+0.065 dAP_itr=-0.001 (31s)
+ImprovMLCQ     LogReg     seed=99 dF1@0.5=+0.143 dF1@best=+0.089 dAP_int=+0.063 dAP_itr=-0.001 (31s)
+ImprovMLCQ     LinearSVC  seed=42 dF1@0.5=+0.144 dF1@best=+0.092 dAP_int=+0.067 dAP_itr=+0.001 (102s)
+ImprovMLCQ     LinearSVC  seed=1 dF1@0.5=+0.144 dF1@best=+0.091 dAP_int=+0.066 dAP_itr=-0.001 (126s)
+ImprovMLCQ     LinearSVC  seed=7 dF1@0.5=+0.144 dF1@best=+0.094 dAP_int=+0.066 dAP_itr=-0.000 (84s)
+ImprovMLCQ     LinearSVC  seed=13 dF1@0.5=+0.143 dF1@best=+0.091 dAP_int=+0.065 dAP_itr=-0.001 (93s)
+ImprovMLCQ     LinearSVC  seed=99 dF1@0.5=+0.143 dF1@best=+0.092 dAP_int=+0.064 dAP_itr=-0.002 (108s)
+ImprovMLCQ     RF         seed=42 dF1@0.5=-0.037 dF1@best=-0.014 dAP_int=-0.007 dAP_itr=-0.006 (30s)
+ImprovMLCQ     RF         seed=1 dF1@0.5=-0.022 dF1@best=+0.000 dAP_int=+0.003 dAP_itr=+0.004 (30s)
+ImprovMLCQ     RF         seed=7 dF1@0.5=-0.026 dF1@best=+0.000 dAP_int=-0.002 dAP_itr=-0.002 (30s)
+ImprovMLCQ     RF         seed=13 dF1@0.5=-0.031 dF1@best=-0.005 dAP_int=-0.002 dAP_itr=-0.003 (30s)
+ImprovMLCQ     RF         seed=99 dF1@0.5=-0.027 dF1@best=+0.002 dAP_int=+0.003 dAP_itr=+0.003 (30s)
+ImprovMLCQ     HistGB     seed=42 dF1@0.5=+0.024 dF1@best=+0.046 dAP_int=+0.011 dAP_itr=+0.002 (39s)
+ImprovMLCQ     HistGB     seed=1 dF1@0.5=+0.022 dF1@best=+0.053 dAP_int=+0.021 dAP_itr=+0.011 (38s)
+ImprovMLCQ     HistGB     seed=7 dF1@0.5=+0.025 dF1@best=+0.058 dAP_int=+0.011 dAP_itr=-0.002 (40s)
+ImprovMLCQ     HistGB     seed=13 dF1@0.5=+0.019 dF1@best=+0.047 dAP_int=+0.013 dAP_itr=+0.005 (39s)
+ImprovMLCQ     HistGB     seed=99 dF1@0.5=+0.032 dF1@best=+0.059 dAP_int=+0.024 dAP_itr=+0.011 (38s)
+Crowdsmelling  LogReg     seed=42 dF1@0.5=-0.000 dF1@best=+0.006 dAP_int=+0.026 dAP_itr=+0.003 (1s)
+Crowdsmelling  LogReg     seed=1 dF1@0.5=+0.011 dF1@best=+0.007 dAP_int=+0.024 dAP_itr=-0.000 (1s)
+Crowdsmelling  LogReg     seed=7 dF1@0.5=-0.015 dF1@best=+0.011 dAP_int=+0.025 dAP_itr=-0.002 (1s)
+Crowdsmelling  LogReg     seed=13 dF1@0.5=-0.016 dF1@best=+0.004 dAP_int=+0.029 dAP_itr=-0.004 (1s)
+Crowdsmelling  LogReg     seed=99 dF1@0.5=-0.007 dF1@best=+0.004 dAP_int=+0.025 dAP_itr=+0.005 (1s)
+Crowdsmelling  LinearSVC  seed=42 dF1@0.5=-0.006 dF1@best=+0.005 dAP_int=+0.020 dAP_itr=+0.006 (19s)
+Crowdsmelling  LinearSVC  seed=1 dF1@0.5=+0.005 dF1@best=+0.006 dAP_int=+0.025 dAP_itr=+0.003 (18s)
+Crowdsmelling  LinearSVC  seed=7 dF1@0.5=-0.018 dF1@best=+0.011 dAP_int=+0.021 dAP_itr=-0.002 (18s)
+Crowdsmelling  LinearSVC  seed=13 dF1@0.5=-0.016 dF1@best=+0.005 dAP_int=+0.032 dAP_itr=-0.002 (17s)
+Crowdsmelling  LinearSVC  seed=99 dF1@0.5=-0.006 dF1@best=+0.003 dAP_int=+0.027 dAP_itr=+0.009 (17s)
+Crowdsmelling  RF         seed=42 dF1@0.5=-0.033 dF1@best=-0.000 dAP_int=+0.005 dAP_itr=+0.006 (4s)
+Crowdsmelling  RF         seed=1 dF1@0.5=-0.025 dF1@best=-0.001 dAP_int=-0.001 dAP_itr=+0.001 (4s)
+Crowdsmelling  RF         seed=7 dF1@0.5=-0.035 dF1@best=+0.004 dAP_int=+0.003 dAP_itr=+0.004 (4s)
+Crowdsmelling  RF         seed=13 dF1@0.5=-0.048 dF1@best=+0.001 dAP_int=-0.003 dAP_itr=-0.004 (4s)
+Crowdsmelling  RF         seed=99 dF1@0.5=-0.031 dF1@best=-0.001 dAP_int=-0.001 dAP_itr=-0.000 (4s)
+Crowdsmelling  HistGB     seed=42 dF1@0.5=-0.026 dF1@best=-0.000 dAP_int=-0.001 dAP_itr=+0.001 (10s)
+Crowdsmelling  HistGB     seed=1 dF1@0.5=-0.027 dF1@best=+0.003 dAP_int=+0.003 dAP_itr=+0.005 (10s)
+Crowdsmelling  HistGB     seed=7 dF1@0.5=-0.037 dF1@best=+0.003 dAP_int=+0.000 dAP_itr=-0.002 (10s)
+Crowdsmelling  HistGB     seed=13 dF1@0.5=-0.044 dF1@best=-0.002 dAP_int=-0.003 dAP_itr=-0.002 (10s)
+Crowdsmelling  HistGB     seed=99 dF1@0.5=-0.036 dF1@best=-0.004 dAP_int=+0.003 dAP_itr=+0.003 (10s)
+SmellyCode++   LogReg     seed=42 dF1@0.5=+0.041 dF1@best=+0.029 dAP_int=+0.010 dAP_itr=+0.000 (10s)
+SmellyCode++   LogReg     seed=1 dF1@0.5=+0.048 dF1@best=+0.033 dAP_int=+0.016 dAP_itr=-0.002 (10s)
+SmellyCode++   LogReg     seed=7 dF1@0.5=+0.058 dF1@best=+0.045 dAP_int=+0.029 dAP_itr=-0.002 (13s)
+SmellyCode++   LogReg     seed=13 dF1@0.5=+0.049 dF1@best=+0.048 dAP_int=+0.018 dAP_itr=-0.002 (10s)
+SmellyCode++   LogReg     seed=99 dF1@0.5=+0.052 dF1@best=+0.039 dAP_int=+0.018 dAP_itr=-0.005 (12s)
+SmellyCode++   LinearSVC  seed=42 dF1@0.5=+0.055 dF1@best=+0.046 dAP_int=+0.030 dAP_itr=+0.001 (19s)
+SmellyCode++   LinearSVC  seed=1 dF1@0.5=+0.057 dF1@best=+0.058 dAP_int=+0.030 dAP_itr=-0.003 (21s)
+SmellyCode++   LinearSVC  seed=7 dF1@0.5=+0.061 dF1@best=+0.055 dAP_int=+0.033 dAP_itr=-0.000 (17s)
+SmellyCode++   LinearSVC  seed=13 dF1@0.5=+0.056 dF1@best=+0.069 dAP_int=+0.034 dAP_itr=-0.000 (25s)
+SmellyCode++   LinearSVC  seed=99 dF1@0.5=+0.053 dF1@best=+0.053 dAP_int=+0.023 dAP_itr=-0.002 (28s)
+SmellyCode++   RF         seed=42 dF1@0.5=-0.003 dF1@best=-0.001 dAP_int=-0.009 dAP_itr=+0.000 (32s)
+SmellyCode++   RF         seed=1 dF1@0.5=-0.001 dF1@best=-0.005 dAP_int=-0.020 dAP_itr=-0.010 (32s)
+SmellyCode++   RF         seed=7 dF1@0.5=-0.006 dF1@best=-0.009 dAP_int=-0.007 dAP_itr=+0.001 (32s)
+SmellyCode++   RF         seed=13 dF1@0.5=-0.004 dF1@best=-0.023 dAP_int=-0.016 dAP_itr=-0.004 (31s)
+SmellyCode++   RF         seed=99 dF1@0.5=-0.001 dF1@best=-0.017 dAP_int=-0.015 dAP_itr=-0.002 (31s)
+SmellyCode++   HistGB     seed=42 dF1@0.5=+0.025 dF1@best=+0.006 dAP_int=+0.006 dAP_itr=+0.006 (19s)
+SmellyCode++   HistGB     seed=1 dF1@0.5=+0.028 dF1@best=-0.001 dAP_int=+0.001 dAP_itr=+0.004 (19s)
+SmellyCode++   HistGB     seed=7 dF1@0.5=+0.032 dF1@best=-0.009 dAP_int=-0.002 dAP_itr=+0.004 (20s)
+SmellyCode++   HistGB     seed=13 dF1@0.5=+0.017 dF1@best=-0.006 dAP_int=-0.013 dAP_itr=-0.002 (21s)
+SmellyCode++   HistGB     seed=99 dF1@0.5=+0.016 dF1@best=-0.005 dAP_int=-0.004 dAP_itr=+0.005 (19s)
+ml-Codesmell   LogReg     seed=42 dF1@0.5=+0.322 dF1@best=+0.310 dAP_int=+0.484 dAP_itr=+0.003 (7s)
+ml-Codesmell   LogReg     seed=1 dF1@0.5=+0.301 dF1@best=+0.283 dAP_int=+0.474 dAP_itr=-0.006 (7s)
+ml-Codesmell   LogReg     seed=7 dF1@0.5=+0.315 dF1@best=+0.306 dAP_int=+0.490 dAP_itr=+0.002 (7s)
+ml-Codesmell   LogReg     seed=13 dF1@0.5=+0.309 dF1@best=+0.306 dAP_int=+0.478 dAP_itr=-0.004 (6s)
+ml-Codesmell   LogReg     seed=99 dF1@0.5=+0.307 dF1@best=+0.282 dAP_int=+0.469 dAP_itr=+0.006 (9s)
+ml-Codesmell   LinearSVC  seed=42 dF1@0.5=+0.438 dF1@best=+0.285 dAP_int=+0.424 dAP_itr=-0.004 (104s)
+ml-Codesmell   LinearSVC  seed=1 dF1@0.5=+0.461 dF1@best=+0.318 dAP_int=+0.459 dAP_itr=+0.001 (127s)
+ml-Codesmell   LinearSVC  seed=7 dF1@0.5=+0.431 dF1@best=+0.281 dAP_int=+0.417 dAP_itr=-0.003 (80s)
+ml-Codesmell   LinearSVC  seed=13 dF1@0.5=+0.392 dF1@best=+0.282 dAP_int=+0.441 dAP_itr=-0.015 (103s)
+ml-Codesmell   LinearSVC  seed=99 dF1@0.5=+0.456 dF1@best=+0.301 dAP_int=+0.428 dAP_itr=-0.001 (143s)
+ml-Codesmell   RF         seed=42 dF1@0.5=+0.027 dF1@best=+0.007 dAP_int=+0.004 dAP_itr=+0.000 (11s)
+ml-Codesmell   RF         seed=1 dF1@0.5=+0.023 dF1@best=+0.007 dAP_int=+0.001 dAP_itr=+0.000 (11s)
+ml-Codesmell   RF         seed=7 dF1@0.5=+0.027 dF1@best=+0.001 dAP_int=+0.000 dAP_itr=+0.000 (11s)
+ml-Codesmell   RF         seed=13 dF1@0.5=+0.031 dF1@best=+0.006 dAP_int=+0.001 dAP_itr=+0.000 (11s)
+ml-Codesmell   RF         seed=99 dF1@0.5=+0.015 dF1@best=+0.005 dAP_int=+0.001 dAP_itr=+0.001 (11s)
+ml-Codesmell   HistGB     seed=42 dF1@0.5=+0.000 dF1@best=-0.001 dAP_int=-0.001 dAP_itr=-0.001 (24s)
+ml-Codesmell   HistGB     seed=1 dF1@0.5=+0.004 dF1@best=+0.000 dAP_int=-0.000 dAP_itr=+0.000 (24s)
+ml-Codesmell   HistGB     seed=7 dF1@0.5=+0.001 dF1@best=+0.000 dAP_int=+0.000 dAP_itr=+0.000 (25s)
+ml-Codesmell   HistGB     seed=13 dF1@0.5=+0.003 dF1@best=+0.003 dAP_int=+0.000 dAP_itr=-0.000 (22s)
+ml-Codesmell   HistGB     seed=99 dF1@0.5=+0.003 dF1@best=+0.001 dAP_int=+0.000 dAP_itr=+0.000 (24s)
+
+=== mean +/- 95% CI over seeds ===
+IST2021        LogReg     dF1@0.5=+0.160+/-0.011 dF1@best=+0.115+/-0.007 dAP_int=+0.166+/-0.011 dAP_itr=-0.001+/-0.008
+IST2021        LinearSVC  dF1@0.5=+0.167+/-0.013 dF1@best=+0.118+/-0.008 dAP_int=+0.170+/-0.011 dAP_itr=+0.001+/-0.007
+IST2021        RF         dF1@0.5=+0.063+/-0.004 dF1@best=+0.034+/-0.006 dAP_int=+0.036+/-0.015 dAP_itr=+0.006+/-0.015
+IST2021        HistGB     dF1@0.5=+0.012+/-0.017 dF1@best=+0.011+/-0.012 dAP_int=+0.008+/-0.017 dAP_itr=-0.004+/-0.013
+ImprovMLCQ     LogReg     dF1@0.5=+0.145+/-0.001 dF1@best=+0.090+/-0.003 dAP_int=+0.065+/-0.001 dAP_itr=-0.000+/-0.001
+ImprovMLCQ     LinearSVC  dF1@0.5=+0.144+/-0.001 dF1@best=+0.092+/-0.001 dAP_int=+0.066+/-0.002 dAP_itr=-0.000+/-0.001
+ImprovMLCQ     RF         dF1@0.5=-0.028+/-0.007 dF1@best=-0.003+/-0.008 dAP_int=-0.001+/-0.005 dAP_itr=-0.001+/-0.005
+ImprovMLCQ     HistGB     dF1@0.5=+0.024+/-0.006 dF1@best=+0.053+/-0.008 dAP_int=+0.016+/-0.008 dAP_itr=+0.005+/-0.007
+Crowdsmelling  LogReg     dF1@0.5=-0.006+/-0.014 dF1@best=+0.006+/-0.004 dAP_int=+0.026+/-0.003 dAP_itr=+0.000+/-0.004
+Crowdsmelling  LinearSVC  dF1@0.5=-0.008+/-0.011 dF1@best=+0.006+/-0.004 dAP_int=+0.025+/-0.006 dAP_itr=+0.003+/-0.006
+Crowdsmelling  RF         dF1@0.5=-0.034+/-0.010 dF1@best=+0.001+/-0.003 dAP_int=+0.001+/-0.004 dAP_itr=+0.001+/-0.005
+Crowdsmelling  HistGB     dF1@0.5=-0.034+/-0.009 dF1@best=+0.000+/-0.004 dAP_int=+0.001+/-0.003 dAP_itr=+0.001+/-0.004
+SmellyCode++   LogReg     dF1@0.5=+0.050+/-0.008 dF1@best=+0.039+/-0.010 dAP_int=+0.018+/-0.009 dAP_itr=-0.002+/-0.002
+SmellyCode++   LinearSVC  dF1@0.5=+0.056+/-0.003 dF1@best=+0.056+/-0.011 dAP_int=+0.030+/-0.005 dAP_itr=-0.001+/-0.002
+SmellyCode++   RF         dF1@0.5=-0.003+/-0.003 dF1@best=-0.011+/-0.011 dAP_int=-0.013+/-0.007 dAP_itr=-0.003+/-0.006
+SmellyCode++   HistGB     dF1@0.5=+0.024+/-0.009 dF1@best=-0.003+/-0.007 dAP_int=-0.003+/-0.009 dAP_itr=+0.003+/-0.004
+ml-Codesmell   LogReg     dF1@0.5=+0.311+/-0.010 dF1@best=+0.297+/-0.017 dAP_int=+0.479+/-0.010 dAP_itr=+0.000+/-0.006
+ml-Codesmell   LinearSVC  dF1@0.5=+0.436+/-0.034 dF1@best=+0.293+/-0.020 dAP_int=+0.434+/-0.021 dAP_itr=-0.004+/-0.008
+ml-Codesmell   RF         dF1@0.5=+0.025+/-0.008 dF1@best=+0.005+/-0.003 dAP_int=+0.001+/-0.002 dAP_itr=+0.000+/-0.000
+ml-Codesmell   HistGB     dF1@0.5=+0.002+/-0.002 dF1@best=+0.001+/-0.002 dAP_int=+0.000+/-0.000 dAP_itr=-0.000+/-0.000
+STRENGTHEN_B DONE

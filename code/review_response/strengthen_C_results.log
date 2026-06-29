@@ -1,0 +1,10 @@
+IST2021        K=6 spec_params=222 itr_params=259 ratio=1.17x  PRAUC spec=0.766 itr=0.765 dPRAUC=+0.000
+ImprovMLCQ     K=4 spec_params=136 itr_params=170 ratio=1.25x  PRAUC spec=0.202 itr=0.202 dPRAUC=+0.001
+Crowdsmelling  K=3 spec_params=177 itr_params=236 ratio=1.33x  PRAUC spec=0.672 itr=0.668 dPRAUC=+0.004
+SmellyCode++   K=4 spec_params=60 itr_params=75 ratio=1.25x  PRAUC spec=0.178 itr=0.179 dPRAUC=-0.000
+ml-Codesmell   K=3 spec_params=126 itr_params=168 ratio=1.33x  PRAUC spec=0.927 itr=0.915 dPRAUC=+0.012
+digits         K=10 spec_params=650 itr_params=715 ratio=1.10x  PRAUC spec=0.975 itr=0.974 dPRAUC=+0.002
+segment        K=7 spec_params=140 itr_params=160 ratio=1.14x  PRAUC spec=0.894 itr=0.895 dPRAUC=-0.001
+vehicle        K=4 spec_params=76 itr_params=95 ratio=1.25x  PRAUC spec=0.797 itr=0.797 dPRAUC=-0.001
+letter         K=26 spec_params=442 itr_params=459 ratio=1.04x  PRAUC spec=0.519 itr=0.508 dPRAUC=+0.011
+STRENGTHEN_C DONE

@@ -1,0 +1,5 @@
+classifier,dataset,methodology,avg_specific_f1,avg_unified_f1,avg_delta_f1
+RandomForest,SmellyCode++,MultiOutputClassifier vs ClassifierChain/NativeRF,0.34283115721505464,0.28683021833465855,0.056000938880396055
+HistGradientBoosting,SmellyCode++,MultiOutputClassifier vs ClassifierChain/NativeRF,0.2540727132916696,0.2531413099328905,0.0009314033587790801
+LogisticRegression,SmellyCode++,MultiOutputClassifier vs ClassifierChain/NativeRF,0.1703929073273301,0.1942165924358002,-0.023823685108470098
+LinearSVC,SmellyCode++,MultiOutputClassifier vs ClassifierChain/NativeRF,0.16827924888949064,0.19652158359862765,-0.02824233470913704

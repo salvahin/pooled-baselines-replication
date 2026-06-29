@@ -1,0 +1,4 @@
+# Large raw/derived datasets — regenerable; not versioned (see README.md)
+mlcodesmell_class.csv
+mlbench/letter.npz
+mlbench/mfeat-factors.npz

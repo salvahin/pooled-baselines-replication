@@ -1,0 +1,5 @@
+smell,positive_rate,specific_f1,specific_std,multiclass_f1,multiclass_std,delta_f1,p_value,cohens_d
+god_class,4.0,0.538,0.026,0.533,0.018,0.005,0.9219,0.21
+long_method,1.5,0.293,0.019,0.299,0.019,-0.006,0.6250,-0.31
+feature_envy,1.9,0.302,0.018,0.307,0.019,-0.005,0.4922,-0.25
+data_class,3.1,0.230,0.026,0.226,0.032,0.004,1.0000,0.13
