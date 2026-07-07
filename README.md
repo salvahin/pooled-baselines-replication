@@ -1,219 +1,96 @@
-# Replication Package: The Impact of Class Imbalance on Classifier Architecture Selection for Code Smell Detection
+# Replication Package — *An Overlooked Baseline Artifact in Comparing Specialized and Pooled Classifiers, with Evidence from Code-Smell Detection*
 
-This repository contains all code, data, and instructions needed to reproduce the experiments described in the paper.
+Code, pre-computed results, and instructions to reproduce the experiments in the paper.
 
-## Overview
+## What the paper shows
 
-We investigate when smell-specific binary classifiers outperform unified multi-class approaches for machine learning-based code smell detection. Key findings:
+Comparing a **specialized** classifier per task against a single **pooled** model that
+handles all tasks is a routine decision in applied machine learning, and reported answers
+disagree. Using code-smell detection as a case study, we show the disagreement is largely
+an artifact of how the pooled baseline is built and scored, not a real architecture effect:
 
-- **Balanced data (>10% positive rate)**: Smell-specific classifiers outperform by ΔF1 = +0.062
-- **Imbalanced data (<5% positive rate)**: No advantage to specialization
-- **Transition zone (5-10%)**: Mixed results requiring empirical evaluation
-
-## Repository Structure
-
-```
-replication-package/
-├── README.md                    # This file
-├── REPRODUCTION.md              # Detailed step-by-step reproduction guide
-├── requirements.txt             # Python dependencies
-├── .gitignore                   # Git ignore patterns
-├── code/
-│   ├── run_experiments.py       # Main experiment script (RQ1-RQ3)
-│   ├── run_multiclassifier_experiments.py  # Cross-classifier validation
-│   ├── run_metaheuristic_experiments.py    # Metaheuristic feature selection (RQ4)
-│   └── regenerate_figures.py    # Figure generation script
-├── data/
-│   ├── README.md                # Dataset download instructions with DOIs
-│   ├── verify_data.py           # Dataset verification script
-│   ├── IST2021/                 # IST2021 dataset (download required)
-│   ├── SmellyCode++.csv         # SmellyCode++ dataset (download required)
-│   ├── ImprovMLCQ.csv           # ImprovMLCQ dataset (download required)
-│   └── *_results_*.csv          # Pre-computed results (included)
-└── notebooks/
-    └── CodeSmells_Reproducibility.ipynb  # Interactive analysis
-```
-
-**IMPORTANT**: Datasets must be downloaded separately. See [data/README.md](data/README.md) for instructions.
+- The conventional pooled baseline (features **+ a task one-hot indicator**) is
+  under-specified for **linear** models: it grants only a per-task intercept and forces all
+  tasks to share one feature-weight vector, so per-task models appear better for a reason
+  unrelated to specialization. **Tree ensembles** are barely affected (they can split on the
+  one-hot). The gap is therefore *model-class-dependent*.
+- Giving the pooled model **per-task weights** — task×feature interactions, or a genuine
+  **softmax/multinomial** classifier — closes the gap. Softmax matches or exceeds the
+  specialized models; only the shared-weight one-hot construction is deficient.
+- The effect **reproduces on standard multi-class tabular benchmarks** (digits, segment,
+  vehicle, letter) unrelated to software, so it is a property of pooled-baseline
+  construction, not of code smells.
+- **Class imbalance does not moderate** the choice: controlled within-dataset positive-rate
+  sweeps trend in opposite directions across datasets.
+- Apparent F1 differences for tree models are **fixed-threshold artifacts** that vanish
+  under PR-AUC.
+- A fairly specified pooled model matches the specialized models in accuracy, so the choice
+  is an **engineering** decision, not an accuracy one. We distil a short **fair-comparison
+  protocol** for such studies.
 
 ## Datasets
 
-### IST2021 (Balanced, ~33% positive rate)
-- **Source**: https://github.com/hjamaan/IST2021-CodeSmellStackingEnsemble
-- **Samples**: 2,520 (420 per smell type)
-- **Features**: 56-83 CK object-oriented metrics
-- **Smells**: God Class, Data Class, Long Method, Feature Envy, Long Parameter List, Switch Statements
+Large datasets are **not** included; download them from their original sources (see
+`data/README.md`). Standard multi-class datasets are fetched via `scikit-learn`/OpenML.
 
-### SmellyCode++ (Imbalanced, 1.5-4% positive rate)
-- **Source**: Figshare (CC BY 4.0)
-- **Samples**: 107,325
-- **Features**: 14 Halstead complexity metrics
-- **Smells**: God Class, Long Method, Feature Envy, Data Class
+| Dataset | Metrics | Labels | Notes |
+|---|---|---|---|
+| IST2021 | CK (36 common) | manual | balanced (~33%) |
+| ImprovMLCQ | CK | manual (MLCQ) | intermediate (5–10%) |
+| Crowdsmelling | CK | crowdsourced | included (small CSVs) |
+| SmellyCode++ | Halstead | hybrid | severe imbalance (1.5–4%), 107,554 rows |
+| ml-Codesmell | iPlasma | tool-generated | 373,400 rows (label-provenance caveat) |
+| digits / segment / vehicle / letter | — | — | sklearn/OpenML, one-vs-rest tasks |
 
-### ImprovMLCQ (Intermediate, 5-10% positive rate)
-- **Source**: Extended MLCQ dataset
-- **Samples**: 13,489
-- **Features**: 33 CK metrics
-- **Smells**: Blob (10.3%), Data Class (9.8%), Feature Envy (5.6%), Long Method (5.1%)
+## Key scripts (`code/review_response/`)
+
+| Script | Produces |
+|---|---|
+| `phase1_fairness2x2.py` | Headline ΔPR-AUC: specific vs pooled-intercept vs pooled-interaction × 4 classifiers × 5 seeds (5 code-smell datasets) |
+| `phase2_generalization.py` | Same on the 4 multi-class tabular datasets |
+| `phase3_specialize.py` | Parameter / training-cost accounting |
+| `strengthen_A_imbalance.py` | Controlled positive-rate sweep (imbalance-as-moderator test) |
+| `strengthen_B_threshold.py` | F1@0.5 vs F1@best vs PR-AUC threshold decomposition |
+| `strengthen_C_params.py` | Params, train time, accuracy parity across datasets |
+| `full_rerun.py` | Full-scale (no subsampling) SmellyCode++ (107k) and ml-Codesmell (373k) |
+| `revfix.py` | Matched-fold Phase 1 (shared per-instance folds) + 7-rate imbalance ladder |
+| `revfix2.py` | Softmax multi-class baseline + matched-fold threshold decomposition |
+| `_loaders.py` | Shared dataset loaders |
+
+Result summaries: `code/review_response/PHASE_RESULTS_SUMMARY.md` and `STRENGTHEN_SUMMARY.md`.
+Pre-computed CSVs are in `data/` (e.g., `phase1_*`, `phase2_*`, `strengthen_*`, `revfix_*`, `full_*`).
 
 ## Requirements
 
-- Python 3.8+
-- scikit-learn >= 1.0
-- pandas >= 1.3
-- numpy >= 1.20
-- matplotlib >= 3.4
-- imbalanced-learn >= 0.9
-- scipy >= 1.7
-
-Install dependencies:
 ```bash
-pip install -r requirements.txt
+pip install -r requirements.txt   # Python 3.9+, scikit-learn, pandas, numpy, scipy, matplotlib
 ```
 
-## Reproducing Experiments
+## Reproduce
 
-For detailed step-by-step instructions, see [REPRODUCTION.md](REPRODUCTION.md).
+1. Download the datasets per `data/README.md`.
+2. From `code/review_response/`, run the scripts above (each writes CSVs to `../../data/`).
+   The matched-fold, full-scale, and 7-rate analyses (`revfix.py`, `revfix2.py`,
+   `full_rerun.py`) are the versions reported in the final manuscript.
+3. See `REPRODUCTION.md` for step-by-step details.
 
-### Quick Start
+## Notes
 
-Run all experiments with a single command:
-```bash
-python code/run_experiments.py
-```
-
-This will:
-1. Run IST2021 experiments (RQ1)
-2. Run SmellyCode++ experiments (RQ2a)
-3. Run ImprovMLCQ experiments (RQ2b)
-4. Run boundary conditions with SMOTE (RQ3)
-5. Run feature ablation study
-6. Save results to `data/` directory
-
-**Expected runtime**: ~30-45 minutes on a modern CPU
-
-### Cross-Classifier Validation
-
-To verify thresholds hold across classifier families:
-```bash
-python code/run_multiclassifier_experiments.py
-```
-
-This tests RandomForest, LinearSVC, HistGradientBoosting, and LogisticRegression.
-
-**Expected runtime**: ~15-20 minutes
-
-### Regenerating Figures
-
-After running experiments:
-```bash
-python code/regenerate_figures.py
-```
-
-This generates:
-- `fig1_ist2021_comparison.png` - RQ1 results
-- `fig2_smellycode_comparison.png` - RQ2a results
-- `fig3_boundary_forest_plot.png` - RQ3 effect sizes
-
-## Experimental Configuration
-
-| Parameter | Value |
-|-----------|-------|
-| Random State | 42 |
-| Cross-Validation | 10-fold stratified |
-| Classifier | RandomForestClassifier |
-| Trees | 100 |
-| Class Weight | balanced |
-| SMOTE | Default (k=5) |
-
-## Expected Results
-
-### Table 1: IST2021 Results (RQ1)
-| Smell Type | Specific F1 | Unified F1 | ΔF1 |
-|------------|-------------|------------|-----|
-| Data Class | 0.989 | 0.956 | +0.033 |
-| God Class | 0.972 | 0.939 | +0.033 |
-| Long Method | 0.839 | 0.752 | +0.087 |
-| Feature Envy | 0.745 | 0.644 | +0.100 |
-| Long Param List | 0.618 | 0.573 | +0.045 |
-| Switch Statements | 0.486 | 0.426 | +0.059 |
-| **Average** | **0.775** | **0.715** | **+0.060** |
-
-### Table 2: SmellyCode++ Results (RQ2a)
-| Smell Type | Pos% | Specific F1 | Multi-label F1 | ΔF1 |
-|------------|------|-------------|----------------|-----|
-| God Class | 4.0% | 0.538 | 0.538 | 0.000 |
-| Long Method | 1.5% | 0.293 | 0.293 | -0.001 |
-| Feature Envy | 1.9% | 0.302 | 0.303 | -0.001 |
-| Data Class | 3.1% | 0.230 | 0.237 | -0.007 |
-| **Average** | **2.6%** | **0.341** | **0.343** | **-0.002** |
-
-### Table 3: ImprovMLCQ Results (RQ2b)
-| Smell Type | Pos% | Specific F1 | Unified F1 | ΔF1 |
-|------------|------|-------------|------------|-----|
-| Blob | 10.3% | 0.588 | 0.375 | +0.213 |
-| Data Class | 9.8% | 0.617 | 0.384 | +0.233 |
-| Feature Envy | 5.6% | 0.262 | 0.592 | -0.330 |
-| Long Method | 5.1% | 0.231 | 0.494 | -0.263 |
-
-**Key insight**: At ~10% positive rate, specialization still benefits; at ~5%, unified approaches prevail.
-
-### Table 4: Cross-Classifier Validation Summary (Smell-Specific vs Unified)
-| Classifier | IST2021 ΔF1 | ImprovMLCQ ΔF1 | SmellyCode++ ΔF1 |
-|------------|-------------|----------------|------------------|
-| RandomForest | +0.060 | -0.037 | -0.023 |
-| LinearSVC | +0.174 | +0.144 | +0.053 |
-| HistGradientBoosting | +0.005 | +0.024 | +0.009 |
-| LogisticRegression | +0.158 | +0.145 | +0.048 |
-
-**Key insight**: All classifiers show positive ΔF1 on balanced data (IST2021). On imbalanced data, tree-based models (RandomForest, HistGradientBoosting) show near-zero or negative ΔF1, while linear models maintain positive ΔF1. This suggests class imbalance effects interact with classifier architecture.
-
-## Statistical Analysis
-
-- **Test**: Wilcoxon signed-rank test (paired, non-parametric)
-- **Effect size**: Cohen's d
-- **Correction**: Bonferroni for multiple comparisons
-- **Significance**: α = 0.05
-
-## Metaheuristic Feature Selection (RQ4)
-
-We tested four algorithms via MAFESE:
-- Particle Swarm Optimization (PSO)
-- Grey Wolf Optimization (GWO)
-- Simulated Annealing (SA)
-- Whale Optimization Algorithm (WOA)
-
-**Result**: 88% of 108 configurations degraded performance, confirming that feature selection cannot compensate for class imbalance.
-
-## Feature Ablation Study
-
-| Features | Avg ΔF1 | Specialization Advantage |
-|----------|---------|--------------------------|
-| 36 | +0.060 | YES |
-| 30 | +0.057 | YES |
-| 20 | +0.050 | YES |
-| 14 | +0.032 | YES |
-
-**Conclusion**: Class imbalance—not feature count—is the primary determinant.
+- Metrics are threshold-independent (PR-AUC) by default; F1 at the default and optimal
+  thresholds is reported for the threshold analysis.
+- `class_weight='balanced'` and default hyperparameters are applied identically to all arms.
 
 ## Citation
 
-If you use this code or data, please cite:
-
 ```bibtex
-@article{authors2026classimbalance,
-  title={The Impact of Class Imbalance on Classifier Architecture Selection for Code Smell Detection},
-  author={[Authors]},
-  journal={},
-  year={2026},
-  publisher={}
+@article{avalos2026pooledbaselines,
+  title   = {An Overlooked Baseline Artifact in Comparing Specialized and Pooled Classifiers, with Evidence from Code-Smell Detection},
+  author  = {Avalos, Diego and Oliva, Diego and Garcia-Ceja, Enrique and Hinojosa, Salvador},
+  journal = {(under review)},
+  year    = {2026}
 }
 ```
 
 ## License
 
-This replication package is released under the MIT License.
-
-## Contact
-
-For questions about this replication package, please open an issue in this repository.
+MIT License.

@@ -1,6 +1,8 @@
 # Step-by-Step Reproduction Guide
 
-This document provides detailed instructions to reproduce all experiments from the paper *"Joint vs. Independent Learning: How Class Imbalance Dictates Classifier Architecture in Code Smell Detection"*.
+This document provides detailed instructions to reproduce the experiments in *"An
+Overlooked Baseline Artifact in Comparing Specialized and Pooled Classifiers, with
+Evidence from Code-Smell Detection."*
 
 ---
 
@@ -17,22 +19,26 @@ This document provides detailed instructions to reproduce all experiments from t
 
 ## Prerequisites
 
-- **Python**: 3.8 or higher
-- **RAM**: 8 GB minimum (16 GB recommended for SmellyCode++ experiments)
-- **Disk Space**: 500 MB for datasets and results
+- **Python**: 3.9 or higher
+- **RAM**: 8 GB minimum (16 GB recommended for the full-scale SmellyCode++ / ml-Codesmell reruns)
+- **Disk Space**: ~1 GB for datasets and results
 - **OS**: Linux, macOS, or Windows with WSL
 
 ## IMPORTANT: Dataset Download Required
 
-**You must download the datasets before running any experiments.**
-
-The raw datasets are not bundled due to size and licensing. See [data/README.md](data/README.md) for download instructions with DOIs and verification steps.
+**You must download the datasets before running any experiments.** Raw datasets are not
+bundled due to size and licensing. See [data/README.md](data/README.md) for download
+instructions with DOIs and verification steps. The four standard multi-class benchmarks
+(digits, segment, vehicle, letter) are fetched automatically via `scikit-learn`/OpenML.
 
 | Dataset | Size | Download Required |
 |---------|------|-------------------|
-| IST2021 | 6 CSV files (~420 rows each) | Yes - from GitHub |
-| SmellyCode++ | ~590 MB (107,554 rows; includes a source-code column) | Yes - from Figshare |
-| ImprovMLCQ | ~4 MB (13,489 rows) | Yes - from Zenodo |
+| IST2021 | 6 CSV files (~420 rows each) | Yes — from GitHub |
+| SmellyCode++ | ~590 MB (107,554 rows; includes a source-code column) | Yes — from Figshare |
+| ImprovMLCQ | ~4 MB (13,489 rows) | Yes — from Zenodo |
+| Crowdsmelling | small CSVs | Included in this package |
+| ml-Codesmell | 373,400 rows, 41 features | Yes — from Figshare |
+| digits / segment / vehicle / letter | small | Auto-fetched (sklearn/OpenML) |
 
 ---
 
@@ -41,56 +47,47 @@ The raw datasets are not bundled due to size and licensing. See [data/README.md]
 ### Option A: Using pip (Recommended)
 
 ```bash
-# Clone the repository
-git clone https://github.com/salvahin/smells-paper.git
-cd smells-paper
+git clone https://github.com/salvahin/pooled-baselines-replication.git
+cd pooled-baselines-replication
 
-# Create virtual environment
 python -m venv venv
 source venv/bin/activate  # Linux/macOS
 # or: venv\Scripts\activate  # Windows
 
-# Install dependencies
 pip install -r requirements.txt
 ```
 
 ### Option B: Using conda
 
 ```bash
-conda create -n codesmells python=3.10
-conda activate codesmells
+conda create -n pooledbaselines python=3.10
+conda activate pooledbaselines
 pip install -r requirements.txt
 ```
 
 ### Verify Installation
 
 ```bash
-python -c "import sklearn, pandas, numpy, scipy, imblearn; print('All dependencies installed successfully')"
+python -c "import sklearn, pandas, numpy, scipy, matplotlib; print('All dependencies installed successfully')"
 ```
 
 ### Pre-Flight Check (Verify Datasets)
-
-Before running experiments, verify all datasets are correctly installed:
 
 ```bash
 cd data
 python verify_data.py
 ```
 
-This script (included in `data/README.md`) checks:
-- IST2021: 6 CSV files with ~420 rows each
-- SmellyCode++: ~107,325 rows
-- ImprovMLCQ: ~13,489 rows with CK metrics
-
-**Do not proceed if any datasets are missing.**
+**Do not proceed if any required datasets are missing.**
 
 ---
 
 ## Downloading Datasets
 
-The datasets must be downloaded separately due to licensing. Place them in the `data/` directory.
+Place downloaded files in the `data/` directory. Full details, including alternate
+mirrors and checksums, are in [data/README.md](data/README.md).
 
-### 1. IST2021 Dataset (Balanced, ~33% positive rate)
+### 1. IST2021 (balanced, ~33% positive rate)
 
 **Source**: https://github.com/hjamaan/IST2021-CodeSmellStackingEnsemble
 
@@ -98,257 +95,165 @@ The datasets must be downloaded separately due to licensing. Place them in the `
 cd data
 git clone https://github.com/hjamaan/IST2021-CodeSmellStackingEnsemble.git
 mkdir -p IST2021
-# CSVs are under Datasets/Original/ in the upstream repo (not Data/)
 cp IST2021-CodeSmellStackingEnsemble/Datasets/Original/*.csv IST2021/
 ```
 
-Required files in `data/IST2021/`:
-- `GodClass.csv`
-- `DataClass.csv`
-- `LongMethod.csv`
-- `FeatureEnvy.csv`
-- `LongParameterList.csv`
-- `SwitchStatements.csv`
+Required files in `data/IST2021/`: `GodClass.csv`, `DataClass.csv`, `LongMethod.csv`,
+`FeatureEnvy.csv`, `LongParameterList.csv`, `SwitchStatements.csv`.
 
-### 2. SmellyCode++ Dataset (Imbalanced, 1.5-4% positive rate)
+### 2. SmellyCode++ (imbalanced, 1.5–4% positive rate)
 
-**Source**: Alomari et al. (2025), *Scientific Data* — Figshare DOI [10.6084/m9.figshare.28519385](https://doi.org/10.6084/m9.figshare.28519385), CC BY 4.0.
+**Source**: Alomari et al. (2025), *Scientific Data* — Figshare DOI
+[10.6084/m9.figshare.28519385](https://doi.org/10.6084/m9.figshare.28519385), CC BY 4.0.
 
 ```bash
 cd data
-# ≈590 MB; the upstream file is multi-smell-dataset-v1_2.csv
 curl -L "https://ndownloader.figshare.com/files/52714583" -o "SmellyCode++.csv"
 ```
 
-(The earlier DOI `10.6084/m9.figshare.28234218` cited in prior drafts no longer resolves.) See [data/README.md](data/README.md) for details.
+### 3. ImprovMLCQ (intermediate, 5–10% positive rate)
 
-### 3. ImprovMLCQ Dataset (Intermediate, 5-10% positive rate)
-
-**Source**: Silva et al. (2025), SBCARS — Zenodo DOI [10.5281/zenodo.14834187](https://doi.org/10.5281/zenodo.14834187).
-
-This file is **not** bundled and must be downloaded (the Zenodo file is named `out_clean.csv`):
+**Source**: Carneiro et al. (2025), SBCARS — Zenodo DOI
+[10.5281/zenodo.14834187](https://doi.org/10.5281/zenodo.14834187).
 
 ```bash
 cd data
 curl -L "https://zenodo.org/api/records/14834187/files/out_clean.csv/content" -o ImprovMLCQ.csv
 ```
 
-### Verify Dataset Setup
+### 4. ml-Codesmell (tool-generated labels, 373,400 rows)
 
-```bash
-ls -la data/
-# Should show:
-# - IST2021/          (directory with 6 CSV files)
-# - SmellyCode++.csv  (107,325 rows)
-# - ImprovMLCQ.csv    (13,489 rows)
-```
+**Source**: Nguyen Thanh et al. (2022), SoICT — see `data/README.md` for the Figshare DOI
+and file layout. Place the file as `data/mlcodesmell_class.csv`.
+
+### 5. Standard multi-class benchmarks
+
+`digits` and `segment`/`vehicle` are bundled or auto-fetched via `sklearn.datasets`;
+`letter` is fetched via `fetch_openml` on first run (cached under `code/review_response/mlbench/`).
 
 ---
 
 ## Running Experiments
 
-### Quick Start: Run All Experiments
+All current scripts live in `code/review_response/`. Each writes its CSV output to
+`data/`. Run them from `code/review_response/`:
 
 ```bash
-cd code
-python run_experiments.py
+cd code/review_response
+python phase1_fairness2x2.py     # headline: specific vs pooled-intercept vs pooled-interaction,
+                                  # 4 classifiers x 5 seeds, 5 code-smell datasets
+python phase2_generalization.py  # same 2x2 on the 4 multi-class tabular datasets
+python phase3_specialize.py      # parameter count / training-cost accounting
+python strengthen_A_imbalance.py # controlled positive-rate sweep (imbalance-as-moderator test)
+python strengthen_B_threshold.py # F1@0.5 vs F1@best vs PR-AUC decomposition
+python strengthen_C_params.py    # params, train time, accuracy parity
+python full_rerun.py             # full-scale SmellyCode++ (107k) and ml-Codesmell (373k)
+python revfix.py                 # matched-fold Phase 1 + 7-rate imbalance ladder
+python revfix2.py                # softmax multi-class baseline + matched-fold threshold decomposition
 ```
 
-**Expected runtime**: 30-45 minutes on a modern CPU
+`revfix.py`, `revfix2.py`, and `full_rerun.py` produce the versions of the analysis
+reported in the final manuscript (matched folds, N=10/N=8 statistics, 7-point ladder,
+full-scale primary tables, and the softmax comparison). The earlier phase/strengthen
+scripts document the intermediate steps that led there and are kept for transparency.
 
-**Output**: Results saved to `data/` directory as timestamped CSV files.
+**Expected runtime**: most scripts finish in minutes; `full_rerun.py`'s ml-Codesmell
+pooled-stack cells are solver-bound (LinearSVC, `dual=False`) and can take on the order
+of an hour per cell on the full 373,400-row / one-hot-expanded pooled stack.
 
-### Individual Experiment Scripts
-
-#### RQ1-RQ3: Core Classification Experiments
+### Regenerating result summaries
 
 ```bash
-python code/run_experiments.py
+python aggregate_phases.py   # rebuilds PHASE_RESULTS_SUMMARY.md from the phase1/phase2 CSVs
 ```
-
-This runs:
-- **RQ1**: IST2021 smell-specific vs. unified comparison
-- **RQ2a**: SmellyCode++ multi-label experiments
-- **RQ2b**: ImprovMLCQ transition zone analysis
-- **RQ3**: SMOTE boundary conditions
-
-#### Cross-Classifier Validation (Table 19)
-
-```bash
-python code/run_multiclassifier_experiments.py
-```
-
-This tests the 10%/5% thresholds across four classifier families:
-- RandomForest (baseline)
-- LinearSVC (kernel-based)
-- HistGradientBoosting (boosting ensemble)
-- LogisticRegression (linear baseline)
-
-**Expected runtime**: 15-20 minutes
-
-#### Metaheuristic Feature Selection (RQ4)
-
-```bash
-python code/run_metaheuristic_experiments.py
-```
-
-This tests wrapper-based feature selection using PSO, SA, GWO, and WOA via the MAFESE framework.
-
-**Requirements**:
-- MAFESE library: `pip install mafese`
-- SmellyCode++ dataset
-
-**Expected runtime**: 2-3 hours (grid search over 108 configurations)
-
-**Note**: If MAFESE is not installed or dataset is missing, the script displays pre-computed results from Table 18.
-
-### Regenerating Figures
-
-After running experiments:
-
-```bash
-python code/regenerate_figures.py
-```
-
-This generates:
-- `fig1_ist2021_comparison.png` - RQ1 results
-- `fig2_smellycode_comparison.png` - RQ2a results
-- `fig3_boundary_forest_plot.png` - RQ3 effect sizes
 
 ---
 
 ## Verifying Results
 
-### Expected Results Summary
+Compare your output CSVs in `data/` to the pre-computed ones already included (same
+filenames). Values should match within the stochastic tolerance of 5-seed averaging
+(typically ±0.005–0.01 PR-AUC; see `code/review_response/STRENGTHEN_SUMMARY.md` for the
+full-scale vs subsampled agreement figures).
 
-#### IST2021 (Balanced, ~33% positive rate)
-- **Expected Average ΔF1**: +0.060 (specific classifiers outperform)
-- **Interpretation**: Smell-specific classifiers significantly better on balanced data
-
-#### SmellyCode++ (Imbalanced, 1.5-4% positive rate)
-- **Expected Average ΔF1**: -0.002 (essentially tied)
-- **Interpretation**: No advantage to specialization on severely imbalanced data
-
-#### ImprovMLCQ (Transition zone, 5-10% positive rate)
-- **Expected findings**:
-  - Blob (10.3%): ΔF1 ≈ +0.21 (specific wins)
-  - Data Class (9.8%): ΔF1 ≈ +0.23 (specific wins)
-  - Feature Envy (5.6%): ΔF1 ≈ -0.33 (unified wins)
-  - Long Method (5.1%): ΔF1 ≈ -0.26 (unified wins)
-- **Interpretation**: Transition occurs between 5% and 10% positive rate
-
-### Comparing Your Results to Ours
-
-Pre-computed results are included in the `data/` directory with `_pr_` suffix:
-
-```bash
-# Compare your IST2021 results to ours
-diff <(cut -d',' -f1,2,5 data/ist2021_results_*.csv | head -7) \
-     <(cut -d',' -f1,2,5 data/ist2021_results_pr_*.csv | head -7)
-```
-
-Results should match within ±0.01 F1 due to random seed fixing.
+Headline result: the conventional (one-hot, shared-weight) pooled baseline shows a large
+linear-model gap (mean ΔPR-AUC ≈ +0.15 on the code-smell corpus, ≈ +0.66 on the multi-class
+corpus) that collapses once the pooled model gets per-task weights (task×feature
+interactions or softmax), while tree ensembles show almost no gap under either
+construction. See `code/review_response/PHASE_RESULTS_SUMMARY.md` and
+`STRENGTHEN_SUMMARY.md` for full tables.
 
 ---
 
 ## Troubleshooting
 
-### Issue: "Memory Error" on SmellyCode++
-
-SmellyCode++ has 107,325 samples. If you encounter memory issues:
-
-```python
-# In run_experiments.py, reduce to 50,000 samples:
-df = df.sample(n=50000, random_state=42)
-```
-
 ### Issue: "Dataset not found"
-
-Ensure datasets are in the correct location:
 
 ```bash
 python -c "
 import os
-datasets = ['data/IST2021/GodClass.csv', 'data/SmellyCode++.csv', 'data/ImprovMLCQ.csv']
+datasets = ['data/IST2021/GodClass.csv', 'data/SmellyCode++.csv', 'data/ImprovMLCQ.csv', 'data/mlcodesmell_class.csv']
 for d in datasets:
     print(f'{d}: {\"FOUND\" if os.path.exists(d) else \"MISSING\"}')"
 ```
 
-### Issue: Different Results
+### Issue: Slow execution on ml-Codesmell full-scale runs
 
-Our experiments use `random_state=42` throughout. Verify:
+The LinearSVC pooled-stack cell in `full_rerun.py` is solver-bound. `dual=False` is
+already set (correct when n_samples >> n_features); reducing to 3 seeds for that one
+cell is an accepted, documented compromise (values agree with 5-seed runs to ±0.001–0.004).
+
+### Issue: Different results
+
+All scripts fix `random_state` per seed. Verify:
 1. Same scikit-learn version (>= 1.0.0)
-2. Same dataset versions
-3. No modifications to hyperparameters
-
-### Issue: Slow Execution
-
-The cross-classifier experiments can be parallelized by classifier:
-
-```bash
-# Run in parallel (4 terminals)
-python code/run_multiclassifier_experiments.py --classifier RandomForest &
-python code/run_multiclassifier_experiments.py --classifier LinearSVC &
-python code/run_multiclassifier_experiments.py --classifier HistGradientBoosting &
-python code/run_multiclassifier_experiments.py --classifier LogisticRegression &
-```
+2. Same dataset file versions (see DOIs in `data/README.md`)
+3. No modified hyperparameters or `class_weight='balanced'` settings
 
 ---
 
 ## Configuration Reference
 
-### Experimental Settings
-
 | Parameter | Value | Justification |
-|-----------|-------|---------------|
-| `random_state` | 42 | Reproducibility |
+|-----------|-------|----------------|
 | `n_splits` | 10 | Standard stratified k-fold CV |
-| `n_estimators` | 100 | RandomForest default, sufficient for convergence |
-| `class_weight` | 'balanced' | Handles imbalanced classes |
-| `SMOTE k-neighbors` | 5 | Default, validated in literature |
+| `class_weight` | `'balanced'` | Applied identically to all arms |
+| seeds | 5 (3 for the slowest ml-Codesmell full-scale LinearSVC cell) | Repeated-measures averaging |
+| primary metric | PR-AUC (average precision) | Threshold-independent |
 
 ### File Structure
 
 ```
-smells-paper/
+pooled-baselines-replication/
 ├── README.md                    # Overview and quick start
-├── REPRODUCTION.md              # This file (detailed instructions)
-├── requirements.txt             # Python dependencies
+├── REPRODUCTION.md              # This file
+├── requirements.txt
 ├── code/
-│   ├── run_experiments.py       # RQ1-RQ3 experiments
-│   ├── run_multiclassifier_experiments.py  # Cross-classifier validation
-│   └── regenerate_figures.py    # Figure generation
+│   └── review_response/         # All current analysis scripts (see README table)
 ├── data/
 │   ├── README.md                # Dataset download instructions
-│   ├── IST2021/                 # IST2021 dataset (download required)
-│   ├── SmellyCode++.csv         # SmellyCode++ (download required)
-│   ├── ImprovMLCQ.csv           # ImprovMLCQ dataset
-│   └── *_results_*.csv          # Pre-computed results
+│   ├── verify_data.py            # Dataset install checker
+│   └── *.csv                    # Pre-computed results (phase1_*, phase2_*, strengthen_*, revfix_*, full_*)
 └── notebooks/
-    └── CodeSmells_Reproducibility.ipynb  # Interactive analysis
+    └── CodeSmells_Reproducibility.ipynb
 ```
 
 ---
 
 ## Contact
 
-For questions or issues with reproduction:
-1. Open an issue at https://github.com/salvahin/smells-paper/issues
-2. Include your Python version, OS, and error messages
+For questions or issues with reproduction, open an issue at
+https://github.com/salvahin/pooled-baselines-replication/issues
 
 ---
 
 ## Citation
 
-If you use this code or data, please cite:
-
 ```bibtex
-@article{hinojosa2026classimbalance,
-  title={Joint vs. Independent Learning: How Class Imbalance Dictates
-         Classifier Architecture in Code Smell Detection},
-  author={Hinojosa, Salvador and others},
-  journal={Applied Sciences},
-  year={2026},
-  publisher={MDPI}
+@article{avalos2026pooledbaselines,
+  title   = {An Overlooked Baseline Artifact in Comparing Specialized and Pooled Classifiers, with Evidence from Code-Smell Detection},
+  author  = {Avalos, Diego and Oliva, Diego and Garcia-Ceja, Enrique and Hinojosa, Salvador},
+  journal = {(under review)},
+  year    = {2026}
 }
 ```
