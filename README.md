@@ -56,9 +56,12 @@ Large datasets are **not** included; download them from their original sources (
 | `revfix.py` | Matched-fold Phase 1 (shared per-instance folds) + 7-rate imbalance ladder |
 | `revfix2.py` | Softmax multi-class baseline + matched-fold threshold decomposition |
 | `_loaders.py` | Shared dataset loaders |
+| `revfix3_mlp.py` | Neural-network (MLP, widths 16/100) replication of the three-arm comparison (revision 1) |
+| `latency_cost.py` | Train-time and batch-inference latency of specialized vs interaction-pooled (revision 1) |
+| `fig_boundary_2d.py` | Synthetic 2D decision-boundary figure (revision 1) |
 
 Result summaries: `code/review_response/PHASE_RESULTS_SUMMARY.md` and `STRENGTHEN_SUMMARY.md`.
-Pre-computed CSVs are in `data/` (e.g., `phase1_*`, `phase2_*`, `strengthen_*`, `revfix_*`, `full_*`).
+Pre-computed CSVs are in `data/` (e.g., `phase1_*`, `phase2_*`, `strengthen_*`, `revfix_*`, `revfix3_*`, `latency_*`, `full_*`).
 
 ## Requirements
 
