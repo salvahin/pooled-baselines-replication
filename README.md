@@ -24,9 +24,16 @@ an artifact of how the pooled baseline is built and scored, not a real architect
   sweeps trend in opposite directions across datasets.
 - Apparent F1 differences for tree models are **fixed-threshold artifacts** that vanish
   under PR-AUC.
+- The artifact **re-emerges in neural networks**: an MLP given only an input task one-hot
+  shows the same construction-dependence, up to +0.77 PR-AUC where capacity is scarce
+  relative to task heterogeneity (capacity- and dataset-dependent), while the
+  interaction-pooled network matched or beat the specialized networks in **all 18
+  dataset x capacity combinations**.
 - A fairly specified pooled model matches the specialized models in accuracy, so the choice
-  is an **engineering** decision, not an accuracy one. We distil a short **fair-comparison
-  protocol** for such studies.
+  is an **engineering** decision with real trade-offs (the pooled model trains faster in a
+  single process and serves all-task batches with lower latency; the specialized set is
+  parameter-cheaper, embarrassingly parallel, and modular). We distil a short
+  **fair-comparison protocol** for such studies.
 
 ## Datasets
 

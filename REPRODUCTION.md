@@ -150,11 +150,15 @@ python strengthen_C_params.py    # params, train time, accuracy parity
 python full_rerun.py             # full-scale SmellyCode++ (107k) and ml-Codesmell (373k)
 python revfix.py                 # matched-fold Phase 1 + 7-rate imbalance ladder
 python revfix2.py                # softmax multi-class baseline + matched-fold threshold decomposition
+python revfix3_mlp.py            # revision 1: MLP (widths 16/100) three-arm replication (~1.5 h total)
+python latency_cost.py           # revision 1: train time + batch-inference latency, specialized vs pooled (~2 min)
+python fig_boundary_2d.py        # revision 1: synthetic 2D decision-boundary figure (seconds)
 ```
 
-`revfix.py`, `revfix2.py`, and `full_rerun.py` produce the versions of the analysis
-reported in the final manuscript (matched folds, N=10/N=8 statistics, 7-point ladder,
-full-scale primary tables, and the softmax comparison). The earlier phase/strengthen
+`revfix.py`, `revfix2.py`, `full_rerun.py`, `revfix3_mlp.py`, and `latency_cost.py`
+produce the versions of the analysis reported in the revised manuscript (matched folds,
+N=10/N=8 statistics, 7-point ladder, full-scale primary tables, the softmax comparison,
+the neural-network replication, and the wall-clock cost accounting). The earlier phase/strengthen
 scripts document the intermediate steps that led there and are kept for transparency.
 
 **Expected runtime**: most scripts finish in minutes; `full_rerun.py`'s ml-Codesmell
@@ -233,7 +237,7 @@ pooled-baselines-replication/
 ├── data/
 │   ├── README.md                # Dataset download instructions
 │   ├── verify_data.py            # Dataset install checker
-│   └── *.csv                    # Pre-computed results (phase1_*, phase2_*, strengthen_*, revfix_*, full_*)
+│   └── *.csv                    # Pre-computed results (phase1_*, phase2_*, strengthen_*, revfix_*, revfix3_*, latency_*, full_*)
 └── notebooks/
     └── CodeSmells_Reproducibility.ipynb
 ```

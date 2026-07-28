@@ -10,6 +10,10 @@ Findings summary: `../../../review-response-findings-2026-06-24.md`; results tab
 - `phase3_specialize.py` — params/train-time: specialized vs interaction-pooled.
 - `robustness*.py`, `ist_down.py`, `imlcq_sweep.py`, `positive_rate_sweep.py`, `crowd.py`, `mlcs_run.py`, `fairness_test.py` — supporting experiments (R1–R6, sweeps, dataset evals).
 - `aggregate_phases.py` — builds `PHASE_RESULTS_SUMMARY.md`.
+- `revfix3_mlp.py` — revision 1: MLPClassifier (hidden 16/100) three-arm replication, matched folds (`revfix3_mlp.csv`).
+- `latency_cost.py` — revision 1: train time + all-task batch-inference latency, specialized vs interaction-pooled (`latency_cost.csv`).
+- `fig_boundary_2d.py` — revision 1: synthetic two-task 2D decision-boundary figure.
+- Revision-1 results summary: `REVISION1_SUMMARY.md`.
 
 ## Data not versioned here (regenerate)
 - `mlcodesmell_class.csv` — ml-Codesmell (Figshare DOI 10.6084/m9.figshare.21343299).
