@@ -255,7 +255,7 @@ https://github.com/salvahin/pooled-baselines-replication/issues
 
 ```bibtex
 @article{avalos2026pooledbaselines,
-  title   = {An Overlooked Baseline Artifact in Comparing Specialized and Pooled Classifiers, with Evidence from Code-Smell Detection},
+  title   = {An Overlooked Baseline Artifact in Comparing Specialized and Pooled Classifiers},
   author  = {Avalos, Diego and Oliva, Diego and Garcia-Ceja, Enrique and Hinojosa, Salvador},
   journal = {(under review)},
   year    = {2026}

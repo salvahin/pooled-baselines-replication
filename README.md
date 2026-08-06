@@ -1,4 +1,4 @@
-# Replication Package — *An Overlooked Baseline Artifact in Comparing Specialized and Pooled Classifiers, with Evidence from Code-Smell Detection*
+# Replication Package — *An Overlooked Baseline Artifact in Comparing Specialized and Pooled Classifiers*
 
 Code, pre-computed results, and instructions to reproduce the experiments in the paper.
 
@@ -94,7 +94,7 @@ pip install -r requirements.txt   # Python 3.9+, scikit-learn, pandas, numpy, sc
 
 ```bibtex
 @article{avalos2026pooledbaselines,
-  title   = {An Overlooked Baseline Artifact in Comparing Specialized and Pooled Classifiers, with Evidence from Code-Smell Detection},
+  title   = {An Overlooked Baseline Artifact in Comparing Specialized and Pooled Classifiers},
   author  = {Avalos, Diego and Oliva, Diego and Garcia-Ceja, Enrique and Hinojosa, Salvador},
   journal = {(under review)},
   year    = {2026}
